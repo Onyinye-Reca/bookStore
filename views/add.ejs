@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Update</title>
+    <link rel="stylesheet" href="/css/forms.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/book.css" />
+  </head>
+  <body>
+    <main>
+      <form
+        class="book-form"
+        action="/create"
+        method="POST">
+        <div class="form-control">
+          <label for="title">Title</label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            />
+        </div>
+        <div class="form-control">
+          <label for="imageURL">ImageURL</label>
+          <input
+            type="text"
+            name="image"
+            id="imageURL"
+            />
+        </div>
+        <div class="form-control">
+          <label for="imageURL">Author</label>
+          <input
+            type="text"
+            name="author"
+            id="imageURL"
+            />
+        </div>
+        <div class="form-control">
+          <label for="description">Description</label>
+          <textarea name="description" id="description" rows="5"></textarea>
+        </div>
+        <div class="form-control">
+          <label for="price">Page Count</label>
+          <input
+            type="text"
+            name="pageCount"
+            id="price"
+          />
+        </div>
+        <div class="form-control">
+          <label for="bookId">Book Id</label>
+          <input
+            type="text"
+            name="bookId"
+          />
+        </div>
+        <div class="form-control">
+          <label for="imageURL">Genre</label>
+          <input
+            type="text"
+            name="genre"
+            id="imageURL"
+          />
+        </div>
+        <div class="form-control">
+          <label for="imageURL">Date Published</label>
+          <input
+            type="text"
+            name="datePublished"
+          />
+        </div>
+        <div class="form-control">
+          <label for="imageURL">Publisher</label>
+          <input
+            type="text"
+            name="publisher"
+            id="imageURL"
+          />
+        </div>
+        <input type="hidden"  name="bookID" />
+        <button class="btn" type="submit">
+            Add Book
+        </button>
+      </form>
+    </main>
+  </body>
+</html>

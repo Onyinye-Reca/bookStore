@@ -19,17 +19,17 @@ export const createBookValidator = z.object({
             required_error: "Description is required",
             invalid_type_error: "Description must be a string"
         }),
-        pageCount: z.number({
+        pageCount: z.string({
             required_error: "Page count published is required",
-            invalid_type_error: "Page Count must be a number"
+            invalid_type_error: "Page Count must be a string"
         }),
         genre: z.string({
             required_error: "Genre published is required",
             invalid_type_error: "Genre must be a string"
         }),
-        bookId: z.number({
+        bookId: z.string({
             required_error: "Book Id published is required",
-            invalid_type_error: "Bood Id must be a Number"
+            invalid_type_error: "Bood Id must be a string"
         }),
         publisher: z.string({
             required_error: "Publisher count published is required",
@@ -44,9 +44,9 @@ export const updateBookValidator = z.object({
         author: z.string().optional(),
         datePublished: z.string().optional(),
         description: z.string().optional(),
-        pageCount: z.number().optional(),
+        pageCount: z.string().optional(),
         genre: z.string().optional(),
-        bookId: z.number().optional(),
+        bookId: z.string().optional(),
         publisher: z.string().optional(),
     })
 })

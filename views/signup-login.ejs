@@ -4,11 +4,11 @@
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <!-- mobile metas -->
+     
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
 
-      <link rel="stylesheet" type="text/css" href="css/signup-login.css">
+      <link rel="stylesheet" type="text/css" href="./signup-login.css">
   </head>
   <body>
     <div class="wrapper">
@@ -18,11 +18,12 @@
         </div>
         <div class="contentWrapper">
           <div class="content active" id="login">
-            <form action="#" method="POST" autocomplete="off">
+            <form id="loginform">
               <div class="formGroup">
                 <label for="email">Email address</label>
                 <input
                   type="email"
+                  name ="email"
                   id="email"
                   placeholder="name@example.com"
                   required
@@ -33,6 +34,7 @@
                 <label for="password">Password</label>
                 <input
                   type="password"
+                  name ="password"
                   id="password"
                   placeholder="Password"
                   required
@@ -48,15 +50,22 @@
             </form>
           </div>
           <div class="content" id="register">
-            <form action="#" method="POST" autocomplete="off">
+            <form action="" method="POST" autocomplete="off">
               <div class="formGroup">
-                <label for="username">Username</label>
+                <label for="firstame">Firstname</label>
                 <input
                   type="text"
-                  id="username"
-                  placeholder="Username"
+                  id="firstname"
+                  placeholder="firstname"
                   required
                 />
+                <label for="lastname">Lastname</label>
+                <input
+                  type="text"
+                  id="lastname"
+                  placeholder="lastname"
+                  required
+                  />
                 <label for="email">Email address</label>
                 <input
                   type="email"
@@ -74,9 +83,9 @@
                   id="password"
                   placeholder="Password"
                   required
-                  title="Must be at least 6 characters"
+                  title="Must be at least 5 characters"
                 />
-                <small class="messageHelp">Must be at least 6 characters</small>
+                <small class="messageHelp">Must be at least 5 characters</small>
                 <label for="confirmPassword">Confirm password</label>
                 <input
                   type="password"
@@ -91,6 +100,6 @@
         </div>
       </div>
   
-  <script data-name="BMC-Widget" data-cfasync="false" src="/js/script.js" data-id="programmingfans" data-description="Support me on Buy me a coffee!" data-message="" data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+  <script data-name="BMC-Widget" data-cfasync="false" src="./js/script.js" data-id="programmingfans" data-description="Support me on Buy me a coffee!" data-message="" data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
   </body>
 </html>

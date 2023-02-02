@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main class="centered">
+      <h1><%= bookRecord.title %></h1>
+      <div><img src="<%= bookRecord.image %>" alt="<%= bookRecord.title %>" /></div>
+      <h2>A book by <%= bookRecord.author %></h2>
+      <p><%= bookRecord.description %></p>
+      <h3>Last published on <%= bookRecord.datePublished %></h3>
+      <h3>Genre: <%= bookRecord.genre %></h3>
+      <h3>Published by: <%= bookRecord.publisher %></h3>
+      <h3>Book size <%= bookRecord.pageCount %></h3>
+    </main>
+  </body>
+</html>

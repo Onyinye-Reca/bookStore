@@ -3,13 +3,14 @@ import db from '../config/database.config';
 
 interface BooksAttribute {
     id: string,
+    userId: string,
     title: string,
     author: string,
     datePublished: string,
     description: string,
-    pageCount: number,
+    pageCount: string,
     genre: string,
-    bookId: number,
+    bookId: string,
     publisher: string,
     image: string
 }
@@ -23,6 +24,11 @@ BooksInstance.init({
   primaryKey: true,
   allowNull: false
  },
+ userId: {
+    type: DataTypes.UUIDV4,
+    primaryKey: true,
+    allowNull: false
+   },
  title: {
     type: DataTypes.STRING,
     allowNull: false
@@ -40,7 +46,7 @@ description: {
     allowNull: false
 },
 pageCount: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.STRING,
     allowNull: false
 },
 genre: {
@@ -48,7 +54,7 @@ genre: {
     allowNull: false
 },
 bookId: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.STRING,
     allowNull: false
 },
 publisher: {

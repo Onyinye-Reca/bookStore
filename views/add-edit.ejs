@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title><%= book.docTitle %></title>
+    <link rel="stylesheet" href="/css/forms.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/book.css" />
+  </head>
+  <body>
+    <header class="main-header">
+      <nav class="main-header__nav">
+        <ul class="main-header__item-list">
+          <li class="main-header__item"><a href="/dashboard">Books</a></li>
+          <li class="main-header__item">
+            <a href="/add-book">Add New Book</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <form
+        class="book-form"
+        action="/<% if (editing) {%>update/<%=book.id%><% } else { %>create<% } %>"
+        method="POST">
+        <div class="form-control">
+          <label for="title">Title</label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            value= "<% if(editing) { %><%=book.title%><% } %>" />
+        </div>
+        <div class="form-control">
+          <label for="imageURL">ImageURL</label>
+          <input
+            type="text"
+            name="image"
+            id="imageURL"
+            value= "<% if(editing) { %><%= book.image %><% } %>" />
+        </div>
+        <div class="form-control">
+            <label for="datePublished">Date Published</label>
+            <input
+              type="text"
+              name="datePublished"
+              value= "<% if(editing) { %><%= book.datePublished %><% } %>" />
+          </div>
+          <div class="form-control">
+            <label for="bookId">Book Id</label>
+            <input
+              type="text"
+              name="bookId"
+              value= "<% if(editing) { %><%= book.bookId %><% } %>" />
+          </div>
+        <div class="form-control">
+          <label for="imageURL">Author</label>
+          <input
+            type="text"
+            name="author"
+            id="imageURL"
+            value= "<% if(editing) { %><%= book.author %><% } %>" />
+        </div>
+        <div class="form-control">
+          <label for="description">Description</label>
+          <textarea name="description" id="description" rows="5">
+  <% if(editing) { %><%= book.description %><% } %></textarea
+          >
+        </div>
+        <div class="form-control">
+          <label for="price">Page Count</label>
+          <input
+            type="number"
+            name="pageCount"
+            id="price"
+            step="0.01"
+            value= "<% if(editing) { %><%= book.pageCount %><% } %>" />
+        </div>
+        <div class="form-control">
+          <label for="imageURL">Genre</label>
+          <input
+            type="text"
+            name="genre"
+            id="imageURL"
+            value= "<% if(editing) { %><%= book.genre %><% } %>" />
+        </div>
+        <div class="form-control">
+          <label for="imageURL">Publisher</label>
+          <input
+            type="text"
+            name="publisher"
+            id="imageURL"
+            value= "<% if(editing) { %><%= book.publisher %><% } %>" />
+        </div>
+        <% if(editing) { %>
+        <input type="hidden" value="<%= book.bookId %>" name="bookId" /> <% } %>
+        <button class="btn" type="submit">
+        <% if(editing) { %>Update Book<% } else { %>Add Book<% } %>
+        </button>
+      </form>
+    </main>
+  </body>
+</html>

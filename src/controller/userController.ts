@@ -19,18 +19,20 @@ export async function registerUser(req: Request, res: Response, next: NextFuncti
 
         const hashedPassword = await bcrypt.hash(password, 8)
 
+        console.log("PASSWORD", hashedPassword)
         const newUserRecord = await UserInstance.create({
             id,
             ...req.body,
             password: hashedPassword
         })
-
+        
         return res.status(201).json({
             message: 'User successfully created',
             newUserRecord
         })
-
+        
     } catch (err) {
+        console.log("ERROR", err)
         res.status(500).json({
             message: 'failed to create user',
             err
@@ -149,6 +151,10 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
         const { email, password } = req.body
 
         const User = await UserInstance.findOne({ where: {email}}) as unknown as {[key: string]: string}
+
+        if(!User){
+            return res.status(401).json({message: 'User does not exist'})
+        }
         
         const { id } = User
         const token = generateAccessToken({id})
@@ -159,12 +165,12 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
             return res.status(401).json({message: 'Invalid login details'})
         }
 
-        // return res.status(200).json({ 
-        //     message: 'Login Successful',
-        //     token,
-        //     User
-        // })
-        res.render('signup-login')
+        return res.status(200).json({ 
+            message: 'Login Successful',
+            token,
+            User
+        })
+        
 
     } catch (err) {
         res.status(500).json({

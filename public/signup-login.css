@@ -15,8 +15,8 @@
     padding: 2em;
     background: linear-gradient(
       90deg,
-      hsla(328, 75%, 45%, 1) 0%,
-      hsla(269, 85%, 41%, 1) 100%
+      rgb(255, 240, 248) 0%,
+      rgb(30, 24, 37) 100%
     );
   
     line-height: 1.4;
@@ -57,8 +57,8 @@
     font-weight: 500;
     background: linear-gradient(
       90deg,
-      hsla(328, 75%, 45%, 1) 0%,
-      hsla(269, 85%, 41%, 1) 100%
+      rgb(161, 157, 159) 0%,
+      rgb(46, 45, 46) 100%
     );
     color: hsl(0, 0%, 100%);
     border-radius: 30px 30px 0 0;
@@ -164,8 +164,8 @@
     border-radius: 30px;
     background: linear-gradient(
       90deg,
-      hsla(328, 75%, 45%, 1) 0%,
-      hsla(269, 85%, 41%, 1) 100%
+      rgb(182, 168, 175) 0%,
+      rgb(47, 47, 48) 100%
     );
     color: hsl(0, 0%, 100%);
     cursor: pointer;
