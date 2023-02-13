@@ -64,7 +64,7 @@ export const registerUserValidator = z.object({
         email: z.string({
             required_error: "Email is required",
             invalid_type_error: "Email must be a string"
-        }),
+        }).email(),
         password: z.string({
             required_error: "Password is required",
             invalid_type_error: "Passowrd must be a string"
@@ -108,6 +108,7 @@ export const loginValidator = z.object({
 
 export  const generateAccessToken = (user: {[key: string]: unknown}): any =>{
     const passKey = process.env.JWT_SECRET as string
-    const jwToken = jwt.sign(user, passKey, {expiresIn: '7d'})
+    const maxAge = 3 * 24 * 60 * 60
+    const jwToken = jwt.sign(user, passKey, {expiresIn: maxAge})
     return jwToken
 }

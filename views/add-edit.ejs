@@ -23,7 +23,7 @@
     <main>
       <form
         class="book-form"
-        action="/<% if (editing) {%>update/<%=book.id%><% } else { %>create<% } %>"
+        action="/books/<% if (editing) {%>/update/<%=book._id%><% } else { %>create<% } %>"
         method="POST">
         <div class="form-control">
           <label for="title">Title</label>
@@ -31,7 +31,7 @@
             type="text"
             name="title"
             id="title"
-            value= "<% if(editing) { %><%=book.title%><% } %>" />
+            value="<% if(editing) { %><%=book.title%><% } %>" />
         </div>
         <div class="form-control">
           <label for="imageURL">ImageURL</label>
@@ -39,29 +39,23 @@
             type="text"
             name="image"
             id="imageURL"
-            value= "<% if(editing) { %><%= book.image %><% } %>" />
+            value="<% if(editing) { %><%= book.image %><% } %>" />
         </div>
         <div class="form-control">
-            <label for="datePublished">Date Published</label>
-            <input
-              type="text"
-              name="datePublished"
-              value= "<% if(editing) { %><%= book.datePublished %><% } %>" />
-          </div>
-          <div class="form-control">
-            <label for="bookId">Book Id</label>
-            <input
-              type="text"
-              name="bookId"
-              value= "<% if(editing) { %><%= book.bookId %><% } %>" />
-          </div>
+          <label for="datePublished">Date Published</label>
+          <input
+            type="text"
+            name="datePublished"
+            value="<% if(editing) { %><%= book.datePublished %><% } %>" />
+        </div>
+
         <div class="form-control">
           <label for="imageURL">Author</label>
           <input
             type="text"
             name="author"
             id="imageURL"
-            value= "<% if(editing) { %><%= book.author %><% } %>" />
+            value="<% if(editing) { %><%= book.author %><% } %>" />
         </div>
         <div class="form-control">
           <label for="description">Description</label>
@@ -76,7 +70,7 @@
             name="pageCount"
             id="price"
             step="0.01"
-            value= "<% if(editing) { %><%= book.pageCount %><% } %>" />
+            value="<% if(editing) { %><%= book.pageCount %><% } %>" />
         </div>
         <div class="form-control">
           <label for="imageURL">Genre</label>
@@ -84,7 +78,7 @@
             type="text"
             name="genre"
             id="imageURL"
-            value= "<% if(editing) { %><%= book.genre %><% } %>" />
+            value="<% if(editing) { %><%= book.genre %><% } %>" />
         </div>
         <div class="form-control">
           <label for="imageURL">Publisher</label>
@@ -92,12 +86,12 @@
             type="text"
             name="publisher"
             id="imageURL"
-            value= "<% if(editing) { %><%= book.publisher %><% } %>" />
+            value="<% if(editing) { %><%= book.publisher %><% } %>" />
         </div>
         <% if(editing) { %>
-        <input type="hidden" value="<%= book.bookId %>" name="bookId" /> <% } %>
+        <input type="hidden" value="<%= book._id %>" name="bookId" /> <% } %>
         <button class="btn" type="submit">
-        <% if(editing) { %>Update Book<% } else { %>Add Book<% } %>
+          <% if(editing) { %>Update Book<% } else { %>Add Book<% } %>
         </button>
       </form>
     </main>

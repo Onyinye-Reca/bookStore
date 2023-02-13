@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "dev": "ts-node-dev --respawn ./bin/www",
+    "start": "node ./dist/app.js",
+    "dev": "nodemon ./dist/app.js",
     "compile": "tsc -w"
   },
   "dependencies": {
@@ -17,6 +17,8 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "jsonwebtoken": "^9.0.0",
+    "mongodb": "^5.0.0",
+    "mongoose": "^6.9.1",
     "morgan": "~1.9.1",
     "sequelize": "^6.28.0",
     "sqlite3": "^5.1.4",
@@ -35,6 +37,19 @@
     "@types/http-errors": "^2.0.1",
     "@types/jsonwebtoken": "^9.0.1",
     "@types/morgan": "^1.9.4",
-    "@types/uuid": "^9.0.0"
-  }
+    "@types/uuid": "^9.0.0",
+    "nodemon": "^2.0.20"
+  },
+  "description": "### Setup 1. Use and setup the project with `yarn` 2. Convert the project to Typescript 3. Initialize tsconfig 4. Create .gitignore file to ignore the node_modules and other required folders",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Onyinye-Reca/bookStore.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Onyinye-Reca/bookStore/issues"
+  },
+  "homepage": "https://github.com/Onyinye-Reca/bookStore#readme"
 }

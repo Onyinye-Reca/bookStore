@@ -8,14 +8,14 @@
   </head>
   <body>
     <main class="centered">
-      <h1><%= bookRecord.title %></h1>
-      <div><img src="<%= bookRecord.image %>" alt="<%= bookRecord.title %>" /></div>
-      <h2>A book by <%= bookRecord.author %></h2>
-      <p><%= bookRecord.description %></p>
-      <h3>Last published on <%= bookRecord.datePublished %></h3>
-      <h3>Genre: <%= bookRecord.genre %></h3>
-      <h3>Published by: <%= bookRecord.publisher %></h3>
-      <h3>Book size <%= bookRecord.pageCount %></h3>
+      <h1><%= book.title %></h1>
+      <div><img src="<%= book.image %>" alt="<%= book.title %>" /></div>
+      <h2>A book by <%= book.author %></h2>
+      <p><%= book.description %></p>
+      <h3>Last published on <%= book.datePublished %></h3>
+      <h3>Genre: <%= book.genre %></h3>
+      <h3>Published by: <%= book.publisher %></h3>
+      <h3>Book size <%= book.pageCount %></h3>
     </main>
   </body>
 </html>

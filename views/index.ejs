@@ -40,9 +40,9 @@
             <nav class="navbar navbar-light bg-light justify-content-between">
                <div id="mySidenav" class="sidenav">
                   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                  <a href="index.html">Home</a>
-                  <a href="/getAll">Books</a>
-                  <a href="/login">Login</a>
+                  <a href="">Home</a>
+                  <a href="/books/getAll">Books</a>
+                  <a href="/books">Login</a>
                </div>
                <span class="toggle_icon" onclick="openNav()"><img src="images/toggle-icon.png"></span>
                <a class="logo" href="index.html"><img src=""></a>
@@ -98,10 +98,10 @@
                         <p class="lorem_text">Author: <%= book.author %> </p>
                         <img src= <%= book.image %> class="image_1">
                         <div class="btn_main">
-                           <a href="/edit/<%= book.id%>"> Edit </a>
-                           <a href="/getOne/<%= book.id%>">Detail</a>
-                           <form action="/delete/<%= book.id%>" method="post">
-                              <input type="hidden" name="bookId" value="<%= book.id%>">
+                           <a href="/books/edit/<%= book._id%>"> Edit </a>
+                           <a href="/books/getOne/<%= book._id%>">Detail</a>
+                           <form action="/books/delete/" method="post">
+                              <input type="hidden" name="bookId" value="<%= book._id%>">
                               <button type="submit">Delete</button>
                            </form>
                         </div>

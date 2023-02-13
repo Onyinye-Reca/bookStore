@@ -39,15 +39,16 @@ router.get('/edit', function(req, res, next) {
   res.render('add-edit', {book: book, editing: false});
 });
 
-router.post("/create", validate(createBookValidator), createBooks);
+router.post("/create", validate(createBookValidator), auth, createBooks);
 router.get("/getAll", getAllBooks);
 router.get("/getOne/:id", getSingleBooks);
 router.post("/update/:id", validate(updateBookValidator), updateBook);
 
-router.post("/delete/:id", deleteBooks);
+router.post("/delete", deleteBooks);
 router.get("/getUserBooks", auth, getBooksByUser);
 
 router.get("/dashboard", getAllBooks);
+
 router.get("/", (req: Request, res: Response, next: NextFunction) => {
   res.render("signup-login");
 });

@@ -34,7 +34,7 @@ loginForm.addEventListener("submit", (handleLogin) => {
     if(response.ok) {
       alert("login successful !")
       // console.log('hiiii');
-      window.location.assign("/dashboard")
+      window.location.assign("/books/dashboard")
       return response.json()
     }else{
       alert("login failed !")

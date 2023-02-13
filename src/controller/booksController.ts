@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { v4 as uuidv4 } from "uuid";
-import { BooksInstance } from "../model/booksModel";
 import jwt from "jsonwebtoken";
+import Book from "../model/booksModel";
+
 
 const secret = process.env.JWT_SECRET as string;
 
@@ -24,15 +25,8 @@ export async function createBooks(
   const id = uuidv4();
   try {
     const titleCheck = req.body.title.toUpperCase();
-    const checkUniqueRecord = await BooksInstance.findOne({
-      where: { title: titleCheck },
-    });
-    const authorization: any = req.headers.authorization;
-    const token = authorization.split(" ")[1];
-    console.log(token);
-
-    const decodedToken: any = jwt.verify(token, secret);
-    console.log(decodedToken);
+    const checkUniqueRecord = await Book.findOne({ title: titleCheck });
+  
 
     if (checkUniqueRecord) {
       return res.status(400).json({
@@ -40,18 +34,18 @@ export async function createBooks(
       });
     }
 
-    const record = await BooksInstance.create({
+    const record = await Book.create({
       id,
-      userId: decodedToken.id,
+      userId: req._id,
       ...req.body,
       title: req.body.title.toUpperCase(),
     });
     
-    // return res.status(201).json({
-    //   message: "Book record successfully created",
-    //   record,
-    // });
-    return res.redirect("/dashboard")
+    return res.status(201).json({
+      message: "Book record successfully created",
+      record,
+    });
+     //return res.redirect("/dashboard")
     
   } catch (err) {
     return res.status(500).json({
@@ -67,14 +61,29 @@ export async function getAllBooks(
   next: NextFunction
 ) {
   try {
-    const bookRecord = await BooksInstance.findAndCountAll();
+    const page: number = +(req.query.page || 1)
+const limit: number = +(req.query.limit || 50)
+const skip= (page - 1) * limit;
+let query = Book.find({}).sort({createdAt: -1});
+query = query.skip(skip).limit(limit)
 
-    //   return res.status(200).json({
-    //       message: "Successfully fetched all Books",
-    //       count: bookRecord.count,
-    //       record: bookRecord.rows,
-    //     });
-    return res.render("index", { books: bookRecord.rows });
+let numberOfDocument = await Book.countDocuments() 
+
+if (req.query.page) {
+  if (skip > numberOfDocument) {
+    return res.status(400).json({
+      message: "Page does not exist"
+    })
+  }
+}
+    const books = await query
+
+      return res.status(200).json({
+          message: "Successfully fetched all Books",
+          count: books.length,
+          books
+        });
+     //return res.render("index", { books: books });
   } catch (err) {
     return res.status(500).json({
       message: "failed to get books",
@@ -88,18 +97,19 @@ export async function updateSingleBook(
   next: NextFunction
 ) {
   try {
-    const { id } = req.params;
+    const { id: value } = req.params;
+    // const value = req.params.id
 
-    const bookRecord = await BooksInstance.findOne({ where: { id } });
+    const book = await Book.findOne({ _id: value } );
 
-    if (!bookRecord) {
+    if (!book) {
       return res.status(400).json({
-        message: `Book with id: ${id} not found`,
+        message: `Book with id: ${value} not found`,
       });
     }
 
     res.render("add-edit", {
-      book: bookRecord,
+      book: book,
       editing: true,
       docTitle: "update"
     });
@@ -119,9 +129,9 @@ export async function getSingleBooks(
   try {
     const { id } = req.params;
 
-    const bookRecord = await BooksInstance.findOne({ where: { id } });
+    const book = await Book.findOne({ _id: id });
 
-    if (!bookRecord) {
+    if (!book) {
       return res.status(400).json({
         message: `Book with id: ${id} not found`,
       });
@@ -129,10 +139,10 @@ export async function getSingleBooks(
 
     // return res.status(200).json({
     //   message: `Book with id: ${id} successfully fetched`,
-    //   bookRecord,
+    //   book,
     // });
     res.render("detail", {
-      bookRecord,
+      book,
     });
   } catch (err) {
     res.status(500).json({
@@ -150,15 +160,15 @@ export async function updateBook(
   try {
     const { id } = req.params;
 
-    const bookRecord = await BooksInstance.findOne({ where: { id } });
+    const book = await Book.findOne({ _id: id });
 
-    if (!bookRecord) {
+    if (!book) {
       return res.status(400).json({
         message: `Book with id: ${id} not found`,
       });
     }
 
-    const newBookRecord = {
+    const newBook = {
       title: req.body?.title,
       author: req.body?.author,
       datePublished: req.body?.datePublished,
@@ -169,15 +179,15 @@ export async function updateBook(
       publisher: req.body?.publisher,
     };
 
-    const updatedRecord = await bookRecord.update(newBookRecord);
+    const updatedBook = await Book.findByIdAndUpdate({_id: id}, newBook, {new: true});
 
     // return res.status(200).json({
     //   message: `Book with id: ${id} successfully updated`,
-    //   updatedRecord,
+    //   updatedBook,
     // });
 
   
-    return res.redirect("/dashboard")
+     return res.redirect("/books/dashboard")
   } catch (err) {
     return res.status(500).json({
       message: `failed to update book`,
@@ -196,21 +206,20 @@ export async function deleteBooks(
     const id = req.body.bookId;
     console.log(id);
 
-    const bookRecord = await BooksInstance.findOne({ where: { id } });
+    const book = await Book.findById(id);
 
-    if (!bookRecord) {
+    if (!book) {
       return res.status(400).json({
         message: `Book with id: ${id} not found`,
       });
     }
 
-    const deletedRecord = await bookRecord.destroy();
-
+    await Book.findByIdAndDelete(id)
     // return res.status(200).json({
     //   message: `Book with id: ${id} successfully deleted`,
-    //   deletedRecord,
+    
     // });
-    res.redirect("/dashboard");
+    res.redirect("/books/dashboard");
   } catch (err) {
     return res.status(500).json({
       message: `failed to delete book`,
@@ -225,28 +234,25 @@ export async function getBooksByUser(
   next: NextFunction
 ) {
   try {
-    const bookRecord = await BooksInstance.findAndCountAll();
-    const books = bookRecord.rows;
-    console.log(books);
-    const authorization: any = req.headers.authorization;
-    const token = authorization.split(" ")[1];
-    console.log(token);
+    
+    // const authorization: any = req.headers.authorization;
+    // const token = authorization.split(" ")[1];
+    // console.log(token);
 
-    const decodedToken: any = jwt.verify(token, secret);
-    console.log(decodedToken);
+    // const decodedToken: any = jwt.verify(token, secret);
+    // console.log(decodedToken);
 
-    // const userId = decodedToken.id
-    const { id } = decodedToken;
-    console.log(id);
+    // const { id } = decodedToken;
 
-    const userBooksRecord = await BooksInstance.findAll({
-      where: { userId: id },
-    });
-    console.log(userBooksRecord);
+    const userId = req._id
+    console.log(userId);
+
+    const userBooks = await Book.find({ userId: userId });
+    console.log(userBooks);
 
     return res.status(200).json({
-      message: `Book with id: ${id} successfully fetched`,
-      userBooksRecord,
+      message: `Books with userId: ${userId} successfully fetched`,
+      userBooks,
     });
 
     // const getSpecificUserBooks = books.filter(el => id);
